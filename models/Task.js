@@ -7,7 +7,7 @@ const taskSchema = new mongoose.Schema({
   },
   isCompleted: {
     type: Boolean,  //==>  it should boolen from "String" 
-    default: "false",
+    default: false, // it Mustn't be string like this "false"
   },
 });
 

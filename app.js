@@ -9,18 +9,20 @@ app.use(express.json());
 // DB Connection
 
 // Maker the DataBase connection with ASync / AWAIt
-const connectDB = async () => {
-  try {
-    await mongoose.connect(process.env.DB_URL)
-     console.log("MongoDB Connected")
-     
-    } catch (error) {  // handling the Error
-
-    
-    console.log("DB Connection Error:", err);
-    
-  }
+async function connectDB() {
+    if (mongoose.connection.readyState >= 1) {  
+        console.log('MongoDB done');
+        return;
+    }
+    try {
+        await mongoose.connect('mongodb://localhost:27017/micro');
+        console.log('Connected to MongoDB');
+    } catch (error) {
+        console.error('Error connecting to MongoDB:', error);
+    }
 }
+
+connectDB() ; // define the connection function
 
 app.use("/api", taskRoutes);
 
